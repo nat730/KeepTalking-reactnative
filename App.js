@@ -3,45 +3,48 @@ import { StyleSheet, View, Text, Picker } from 'react-native';
 import { CheckBox } from 'react-native-web';
 
 export default function App() {
-  const [isChecked, setIsChecked] = useState(false);  
-  const handleCheckboxChange = () => {setIsChecked(!isChecked);};
+  const [isChecked, setIsChecked] = useState(false);
   const [batteryNumber, setBatteryNumber] = useState('exploser');
 
-  
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
-      <View style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.column}>
-<Text>le bouton est il rouge avec ecrit maintenir</Text>
-<CheckBox value={isChecked} onValueChange={handleCheckboxChange} />
-      {isChecked && (
-        <View style={styles.title}>
-<Text>cliquer sur le bouton</Text>
+        <Text>Le bouton est-il rouge avec écrit "Maintenir"</Text>
+        <CheckBox value={isChecked} onValueChange={handleCheckboxChange} />
+
+        {!isChecked && (
+          <Picker
+            selectedValue={batteryNumber}
+            style={styles.dropdown}
+            onValueChange={(label) => setBatteryNumber(label)}
+          >
+            <Picker.Item label="Combien de piles ?" value="NumberBattery" />
+            <Picker.Item label="0" value="0" />
+            <Picker.Item label="1 pile ou + et bouton marquer explosé" value="1+" />
+            <Picker.Item label="2 ou + et indicateur allumé avec les lettres FRK" value="2+" />
+            <Picker.Item label="other" value="autre" />
+          </Picker>
+        )}
+
+        {(isChecked || (!isChecked && batteryNumber === '1+') || (!isChecked && batteryNumber === '2+')) && (
+          <View style={styles.title}>
+            <Text>Cliquer sur le bouton</Text>
+          </View>
+        )}
+
+        {(!isChecked && batteryNumber === '0') || (!isChecked && batteryNumber === 'autre') && (
+          <View style={styles.title}>
+            <Text>Test</Text>
+          </View>
+        )}
       </View>
-      )   
-      }
-      {!isChecked && (
-        <Picker
-        selectedValue={batteryNumber}
-        style={styles.dropdown}
-        onValueChange={(itemValue) => setBatteryNumber(itemValue)}
-      >
-        <Picker.Item label="Combien de piles ?" value="NumberBattery" />
-        <Picker.Item label="0" value="0" />
-        <Picker.Item label="1+" value="1 ou +" />
-        <Picker.Item label="2+" value="2 ou +" />
-      </Picker>
-      )
-}
-{batteryNumber == 0 && (
-  fezrder
-)
-}
-      </View>
-    </View> 
+    </View>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
