@@ -4,11 +4,16 @@ import { CheckBox } from 'react-native-web';
 
 export default function App() {
   const [isChecked, setIsChecked] = useState(false);
-  const [batteryNumber, setBatteryNumber] = useState('exploser');
+  const [batteryNumber, setBatteryNumber] = useState();
+  const [color, setColor] = useState();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+
+  const showButton = isChecked || (!isChecked && (batteryNumber === '1+' || batteryNumber === '2+'));
+  const showColorStrip = !isChecked && (batteryNumber === '0' || batteryNumber === 'other');
+  const showColorPicker = showColorStrip && color === undefined;
 
   return (
     <View style={styles.container}>
@@ -26,19 +31,50 @@ export default function App() {
             <Picker.Item label="0" value="0" />
             <Picker.Item label="1 pile ou + et bouton marquer explosé" value="1+" />
             <Picker.Item label="2 ou + et indicateur allumé avec les lettres FRK" value="2+" />
-            <Picker.Item label="other" value="autre" />
+            <Picker.Item label="autre" value="other" />
           </Picker>
         )}
 
-        {(isChecked || (!isChecked && batteryNumber === '1+') || (!isChecked && batteryNumber === '2+')) && (
+        {showButton && (
           <View style={styles.title}>
             <Text>Cliquer sur le bouton</Text>
           </View>
         )}
 
-        {(!isChecked && batteryNumber === '0') || (!isChecked && batteryNumber === 'autre') && (
+        {showColorStrip && (
           <View style={styles.title}>
-            <Text>Test</Text>
+            <Text>Rester appuyer sur le bouton et relâcher lorsque le compte à rebours affiche un : </Text>
+          </View>
+        )}
+
+        {showColorPicker && (
+          <Picker
+            selectedValue={color}
+            style={styles.dropdown}
+            onValueChange={(label) => setColor(label)}
+          >
+            <Picker.Item label="De quelle couleur est la bande ?" value="whatsColor" />
+            <Picker.Item label="Bleu" value="blue" />
+            <Picker.Item label="Jaune" value="yellow" />
+            <Picker.Item label="Autre" value="other" />
+          </Picker>
+        )}
+
+        {color === 'blue' && (
+          <View style={styles.title}>
+            <Text>4 à n'importe quelle position.</Text>
+          </View>
+        )}
+
+        {color === 'yellow' && (
+          <View style={styles.title}>
+            <Text>5 à n'importe quelle position.</Text>
+          </View>
+        )}
+
+        {color === 'other' && (
+          <View style={styles.title}>
+            <Text>1 à n'importe quelle position.</Text>
           </View>
         )}
       </View>
@@ -62,18 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-  },
-  heading: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 5,
   },
   dropdown: {
     height: 40,
