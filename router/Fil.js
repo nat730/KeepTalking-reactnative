@@ -8,25 +8,29 @@ export default function Fil() {
   const [notWire, setNotWire] = useState([]);
   const [tableauWires, setTableauWires] = useState([]);
 
-
   const handleNumberOfPickersChange = (value) => {
     setNumberOfPickers(value);
     setFilNumbers(Array.from({ length: value }, (_, index) => (index + 1).toString()));
-    setTableauWires(tableauWires= new Array(value).fill(0));
+    setTableauWires(new Array(value).fill(0));
     {console.log(tableauWires)};
   };
 
   useEffect(() => {
     setNotRed(filNumbers.filter(color => color === "red"));
     setNotWire(filNumbers.filter(wire => wire === '0'));
-    {console.log(tableauWires,"lelelel")};
   }, [filNumbers]);
 
   const handlePickerValueChange = (index, value) => {
     const updatedFilNumbers = [...filNumbers];
     updatedFilNumbers[index] = value;
     setFilNumbers(updatedFilNumbers);
+
+    const updatetableauWires = [...filNumbers];
+    updatetableauWires[index] = value;
+    setTableauWires(updatedFilNumbers);
+    console.log(tableauWires,"ouhgvsln");
   };
+  console.log(tableauWires,"ouhgvslnV2");
 
   const pickerComponents = filNumbers.map((value, index) => (
     <Picker
