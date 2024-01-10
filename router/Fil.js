@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Picker } from 'react-native';
 
 export default function Fil() {
   const [filNumbers, setFilNumbers] = useState([]);
   const [numberOfPickers, setNumberOfPickers] = useState(0);
-  const notRed = filNumbers.filter(color => color == "red");
+  const [notRed, setNotRed] = useState([]);
+  const [notWire, setNotWire] = useState([]);
+  const [tableauWires, setTableauWires] = useState([]);
+
 
   const handleNumberOfPickersChange = (value) => {
     setNumberOfPickers(value);
     setFilNumbers(Array.from({ length: value }, (_, index) => (index + 1).toString()));
+    setTableauWires(tableauWires= new Array(value).fill(0));
+    {console.log(tableauWires)};
   };
+
+  useEffect(() => {
+    setNotRed(filNumbers.filter(color => color === "red"));
+    setNotWire(filNumbers.filter(wire => wire === '0'));
+    {console.log(tableauWires,"lelelel")};
+  }, [filNumbers]);
 
   const handlePickerValueChange = (index, value) => {
     const updatedFilNumbers = [...filNumbers];
@@ -22,7 +33,8 @@ export default function Fil() {
       key={index.toString()}
       selectedValue={value}
       style={styles.dropdown}
-      onValueChange={(itemValue) => handlePickerValueChange(index, itemValue)}
+      onValueChange={(itemValue) => handlePickerValueChange(index, itemValue)
+    }
     >
       <Picker.Item label="quel est la couleur du fil ?" value="0" />
       <Picker.Item label="rouge" value="red" />
@@ -35,24 +47,23 @@ export default function Fil() {
 
   return (
     <View style={styles.container}>
-      {console.log(filNumbers)}
-      {console.log(notRed,"pas rouge")}
       <View style={styles.questionContainer}>
         <Text style={styles.questionText}>Combien de fils ?</Text>
         <Picker
-          selectedValue={numberOfPickers.toString()}
           style={styles.dropdown}
           onValueChange={(value) => handleNumberOfPickersChange(parseInt(value, 10))}
         >
-          {[0, 3, 4, 5].map((value) => (
-            <Picker.Item key={value.toString()} label={value.toString()} value={value.toString()} />
-          ))}
+          {[0, 3, 4, 5, 6].map((value) => (
+            <Picker.Item key={value.toString()} label={value} />
+            ))}
         </Picker>
+        {console.log(notRed, "pas rouge")}
+      {console.log(notWire, "pas fil")}
       </View>
 
       <View style={styles.pickerContainer}>{pickerComponents}</View>
 
-      {numberOfPickers === 3 && notRed.length == 0 && (
+      {numberOfPickers === 3 && notRed.length === 0 && (
         <View style={styles.title}>
           <Text>couper le dernier fil </Text>
         </View>
