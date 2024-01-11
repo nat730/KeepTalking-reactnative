@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Picker, TextInput } from 'react-native';
-import { couperFil } from './allFils';
+import { couperFil } from './fils/allFils';
 
 export default function Fil() {
   const [filNumbers, setFilNumbers] = useState([]);

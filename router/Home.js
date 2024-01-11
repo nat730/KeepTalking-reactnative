@@ -11,6 +11,9 @@
         <Pressable style={styles.button} onPress={() => navigation.navigate('Fil')}>
             <Text>Fils</Text>
         </Pressable>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Clavier')}>
+            <Text>Clavier</Text>
+        </Pressable>
         </View>
     );
     }

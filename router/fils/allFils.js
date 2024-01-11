@@ -1,7 +1,7 @@
-import {couperFil3} from "./fils/3fils"; //export default sans accolade et nom qu'on veut
-import {couperFil4} from "./fils/4fils"; //export const avec accolade et meme nom.
-import {couperFil5} from "./fils/5fils";
-import {couperFil6} from "./fils/6fils";
+import {couperFil3} from "./3fils"; //export default sans accolade et nom qu'on veut
+import {couperFil4} from "./4fils"; //export const avec accolade et meme nom.
+import {couperFil5} from "./5fils";
+import {couperFil6} from "./6fils";
 
 export function couperFil(tableauWires,dernierChiffreNumeroSerie) {
   const numberOfPickers = tableauWires.length;

@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Button from './router/Button';
 import Home from './router/Home';
 import Fil from './router/Fil';
+import Clavier from './router/Clavier';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ function App() {
       <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Button" component={Button} />
         <Stack.Screen name="Fil" component={Fil} />
+        <Stack.Screen name="Clavier" component={Clavier} />
       </Stack.Navigator>
     </NavigationContainer>
   );
