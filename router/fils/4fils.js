@@ -1,4 +1,4 @@
-export default function couperFil4(tableauWires, dernierChiffreNumeroSerie) {
+export function couperFil4(tableauWires, dernierChiffreNumeroSerie) {
     const numberOfPickers = tableauWires.length;
     const redCount = tableauWires.filter((color) => color === "red").length;
     const blueCount = tableauWires.filter((color) => color === "blue").length;
@@ -17,4 +17,3 @@ export default function couperFil4(tableauWires, dernierChiffreNumeroSerie) {
       return "Couper le deuxième fil.";
     }
   }
-  

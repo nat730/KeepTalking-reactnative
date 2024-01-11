@@ -1,16 +1,16 @@
     import * as React from 'react';
-    import { StyleSheet,View, Text, TouchableOpacity } from 'react-native';
+    import { StyleSheet,View, Text, Pressable } from 'react-native';
 
     export default function Home({ navigation }) {
     return (
         <View style={styles.container}>
         <Text>Home Screen</Text>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Button')}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Button')}>
             <Text>Bouton</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Fil')}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Fil')}>
             <Text>Fils</Text>
-        </TouchableOpacity>
+        </Pressable>
         </View>
     );
     }

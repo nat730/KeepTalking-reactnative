@@ -1,20 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { StyleSheet, View, Text, Picker } from 'react-native';
-import couperFil from './fils/allFils';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Picker, TextInput } from 'react-native';
+import { couperFil } from './allFils';
 
 export default function Fil() {
   const [filNumbers, setFilNumbers] = useState([]);
   const [tableauWires, setTableauWires] = useState([]);
-  const numberOfPickers = useMemo(() => tableauWires.length, [tableauWires]);
+  const [dernierChiffreNumeroSerie, setDernierChiffreNumeroSerie] = useState("");
 
   const handleNumberOfPickersChange = (value) => {
     setFilNumbers(Array.from({ length: value }, (_, index) => (index + 1).toString()));
     setTableauWires(new Array(value).fill("yellow"));
   };
-
-  useEffect(() => {
-    console.log(tableauWires, "ouhgvsln");
-  }, [tableauWires]);
 
   const handlePickerValueChange = (index, value) => {
     setTableauWires((prevTableauWires) => {
@@ -22,6 +18,11 @@ export default function Fil() {
       updatedTableauWires[index] = value;
       return updatedTableauWires;
     });
+  };
+
+  const onChangeNumber = (value) => {
+    const numericValue = value.replace(/[^0-9]/g, '');
+    setDernierChiffreNumeroSerie(numericValue);
   };
 
   const pickerComponents = filNumbers.map((_, index) => (
@@ -54,9 +55,19 @@ export default function Fil() {
 
       <View style={styles.pickerContainer}>{pickerComponents}</View>
 
-      <View style={styles.title}>
-        <Text>{couperFil(numberOfPickers)}</Text>
-      </View>
+      {(tableauWires.length === 4 || tableauWires.length === 5 || tableauWires.length === 6) && (
+        <View style={styles.title}>
+          <TextInput
+            style={styles.input}
+            onChangeText={onChangeNumber}
+            value={dernierChiffreNumeroSerie}
+            placeholder="Dernier chiffre du numéro de série"
+            keyboardType="numeric"
+          />
+        </View>
+      )}
+      <Text>{couperFil(tableauWires, parseInt(dernierChiffreNumeroSerie, 10))}</Text>
+
     </View>
   );
 }
@@ -87,4 +98,11 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 10,
   },
-})
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+  },
+});

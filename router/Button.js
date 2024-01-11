@@ -20,7 +20,7 @@ export default function Button() {
         <View style={styles.column}>
           <Text>Le bouton est-il rouge avec écrit "Maintenir"</Text>
           <CheckBox value={isChecked} onValueChange={handleCheckboxChange} />
-
+          <Text>si non : </Text>
           {!isChecked && (
             <Picker
               selectedValue={batteryNumber}

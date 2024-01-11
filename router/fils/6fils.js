@@ -1,5 +1,4 @@
-export default function couperFil6(tableauWires, dernierChiffreNumeroSerie) {
-    const numberOfPickers = tableauWires.length;
+export function couperFil6(tableauWires, dernierChiffreNumeroSerie) {
     const yellowCount = tableauWires.filter((color) => color === "yellow").length;
     const whiteCount = tableauWires.filter((color) => color === "white").length;
     const redCount = tableauWires.filter((color) => color === "red").length;
